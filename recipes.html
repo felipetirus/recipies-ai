@@ -3,446 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Recipes - AI Powered Recipe Browser</title>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/react.min.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/react-dom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.10.3/recharts.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/tabler-icons.min.css">
+    <title>My Recipes - Recipe Browser</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        html {
+
+        :root {
             --surface-0: #f5f5f5;
             --surface-1: #ffffff;
-            --surface-2: #ffffff;
             --text-primary: #1a1a1a;
             --text-secondary: #666666;
-            --text-muted: #999999;
             --text-accent: #3b82f6;
-            --text-danger: #ef4444;
             --border: #e5e5e5;
             --border-strong: #d0d0d0;
             --bg-accent: #3b82f6;
             --radius: 8px;
-            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
-        
+
         @media (prefers-color-scheme: dark) {
-            html {
+            :root {
                 --surface-0: #1a1a1a;
                 --surface-1: #2d2d2d;
-                --surface-2: #1a1a1a;
                 --text-primary: #ffffff;
                 --text-secondary: #b0b0b0;
-                --text-muted: #808080;
-                --text-accent: #60a5fa;
                 --border: #404040;
                 --border-strong: #505050;
                 --bg-accent: #3b82f6;
             }
         }
-        
+
         body {
-            font-family: var(--font-sans);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background-color: var(--surface-0);
             color: var(--text-primary);
             line-height: 1.6;
         }
-        
-        #root {
-            min-height: 100vh;
-            background-color: var(--surface-0);
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 14px;
+            background-color: var(--surface-1);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .meal-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--surface-1);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-transform: capitalize;
+        }
+
+        button:hover {
+            border-color: var(--border-strong);
+        }
+
+        button.active {
+            background-color: var(--bg-accent);
+            color: white;
+            border-color: var(--bg-accent);
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .recipe-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--surface-1);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .recipe-card:hover {
+            border-color: var(--border-strong);
+        }
+
+        .recipe-card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: var(--border);
+        }
+
+        .recipe-card-content {
+            padding: 16px;
+        }
+
+        .recipe-meal-type {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            text-transform: capitalize;
+        }
+
+        .recipe-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .recipe-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin: 0 0 12px 0;
+        }
+
+        .recipe-card-nutrition {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--surface-1);
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: var(--surface-1);
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            background-color: var(--border);
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .section ul,
+        .section ol {
+            margin-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .nutrition-table th {
+            text-align: left;
+            padding: 8px 0;
+            font-weight: 500;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nutrition-table td {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nutrition-table td:last-child {
+            text-align: right;
+        }
+
+        .radar-chart {
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .footer {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-secondary);
+        }
+
+        .no-results p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .no-results p:last-child {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
-    
-    <script type="text/babel">
-        const { useState, useMemo } = React;
-        const { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Tooltip } = Recharts;
+    <div class="container">
+        <h1>My recipes</h1>
+        <p class="subtitle">Browse and filter your favorite recipes</p>
 
-        const RecipeWebsite = () => {
-            const recipesData = {
-                recipes: [
-                    {
-                        id: 1,
-                        name: "Farofa de Ovo",
-                        mealType: "breakfast",
-                        description: "Traditional Brazilian egg farofa with cassava flour and olive oil",
-                        imageUrl: "https://images.unsplash.com/photo-1585521537872-f90e99258e1e?w=400&h=300&fit=crop",
-                        servings: 1,
-                        ingredients: ["2 Whole Eggs", "35g Farinha de mandioca", "15g Extra Virgin Olive Oil"],
-                        steps: ["Heat olive oil in a pan over medium heat", "Crack eggs and scramble until cooked through", "Add cassava flour gradually while stirring", "Mix until golden and crumbly texture forms", "Season to taste and serve hot"],
-                        nutrition: { calories: 391, protein: 13.02, carbohydrates: 30.8, fat: 24, saturatedFat: 4.65, fiber: 0, sugar: 0 },
-                        radarChartData: [
-                            { category: "Calories", value: 39, fullValue: 391 },
-                            { category: "Protein (g)", value: 13, fullValue: 13 },
-                            { category: "Carbs (g)", value: 31, fullValue: 31 },
-                            { category: "Fat (g)", value: 24, fullValue: 24 },
-                            { category: "Fiber (g)", value: 2, fullValue: 2 }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name: "Chickpea Curry",
-                        mealType: "lunch",
-                        description: "Creamy coconut chickpea curry with tomatoes and aromatic spices",
-                        imageUrl: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
-                        servings: 2,
-                        ingredients: ["50g Onion", "20g Curry Powder Medium", "400g Chopped Tomato", "400g Chickpeas in Water", "400g Coconut Milk Light"],
-                        steps: ["Dice onions and sauté in a large pot until soft", "Add curry powder and cook for 1-2 minutes until fragrant", "Add chopped tomatoes and simmer for 5 minutes", "Add drained chickpeas and coconut milk", "Simmer for 20 minutes until flavors combine", "Adjust seasoning and serve with rice"],
-                        nutrition: { calories: 924, protein: 39.3, carbohydrates: 90.08, fat: 36.52, saturatedFat: 22.56, fiber: 15, sugar: 22.17 },
-                        radarChartData: [
-                            { category: "Calories", value: 92, fullValue: 924 },
-                            { category: "Protein (g)", value: 39, fullValue: 39 },
-                            { category: "Carbs (g)", value: 90, fullValue: 90 },
-                            { category: "Fat (g)", value: 37, fullValue: 37 },
-                            { category: "Fiber (g)", value: 15, fullValue: 15 }
-                        ]
-                    },
-                    {
-                        id: 3,
-                        name: "Vitamina Bicudo",
-                        mealType: "breakfast",
-                        description: "Nutritious smoothie bowl with bananas, oats, and healthy fats",
-                        imageUrl: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
-                        servings: 1,
-                        ingredients: ["500g Almond roasted milk", "70g Oats Powder", "2 Bananas", "12g Flax Oil", "20g Honey", "2g Whey Protein"],
-                        steps: ["Pour almond milk into a blender", "Add oats powder and blend until smooth", "Add sliced bananas and blend well", "Add flax oil and honey for sweetness", "Add whey protein powder and blend", "Pour into a bowl and serve immediately"],
-                        nutrition: { calories: 700.94, protein: 14.82, carbohydrates: 95.87, fat: 25.75, saturatedFat: 3.68, fiber: 8, sugar: 55.38 },
-                        radarChartData: [
-                            { category: "Calories", value: 70, fullValue: 700 },
-                            { category: "Protein (g)", value: 15, fullValue: 15 },
-                            { category: "Carbs (g)", value: 96, fullValue: 96 },
-                            { category: "Fat (g)", value: 26, fullValue: 26 },
-                            { category: "Fiber (g)", value: 8, fullValue: 8 }
-                        ]
-                    },
-                    {
-                        id: 4,
-                        name: "Falafel Wrap",
-                        mealType: "lunch",
-                        description: "Quick and delicious falafel wraps with hummus and vegetables",
-                        imageUrl: "https://images.unsplash.com/photo-1585238341710-4b9c6c85eaeb?w=400&h=300&fit=crop",
-                        servings: 1,
-                        ingredients: ["2 Falafel", "2 Wraps", "35g Hummus", "80g Mixed Peppers", "50g Onion", "10g Extra Virgin Olive Oil"],
-                        steps: ["Warm the wraps in a dry pan or microwave", "Spread hummus on each wrap", "Place falafel in the center of wrap", "Add sliced peppers and onions", "Drizzle with olive oil", "Wrap tightly and serve with extra hummus"],
-                        nutrition: { calories: 564.08, protein: 14.42, carbohydrates: 72.39, fat: 21.96, saturatedFat: 3.31, fiber: 10, sugar: 10.16 },
-                        radarChartData: [
-                            { category: "Calories", value: 56, fullValue: 564 },
-                            { category: "Protein (g)", value: 14, fullValue: 14 },
-                            { category: "Carbs (g)", value: 72, fullValue: 72 },
-                            { category: "Fat (g)", value: 22, fullValue: 22 },
-                            { category: "Fiber (g)", value: 10, fullValue: 10 }
-                        ]
-                    },
-                    {
-                        id: 5,
-                        name: "Broccoli Delight",
-                        mealType: "dinner",
-                        description: "Creamy broccoli curry with peppers and coconut milk",
-                        imageUrl: "https://images.unsplash.com/photo-1609501676725-7186f017a4b1?w=400&h=300&fit=crop",
-                        servings: 2,
-                        ingredients: ["400g Broccoli", "300g Mixed Peppers", "7g Curry Powder", "400g Coconut Milk Light", "240g Red Kidney beans", "0.5 Lime"],
-                        steps: ["Chop broccoli into florets and cut peppers into strips", "Heat coconut milk in a large pan", "Add curry powder and stir well", "Add broccoli and peppers, simmer 10 minutes", "Add kidney beans and warm through", "Squeeze fresh lime juice and serve hot"],
-                        nutrition: { calories: 793.21, protein: 48.61, carbohydrates: 64.28, fat: 32.65, saturatedFat: 22.93, fiber: 18, sugar: 25.92 },
-                        radarChartData: [
-                            { category: "Calories", value: 79, fullValue: 793 },
-                            { category: "Protein (g)", value: 49, fullValue: 49 },
-                            { category: "Carbs (g)", value: 64, fullValue: 64 },
-                            { category: "Fat (g)", value: 33, fullValue: 33 },
-                            { category: "Fiber (g)", value: 18, fullValue: 18 }
-                        ]
-                    },
-                    {
-                        id: 6,
-                        name: "Spanish Lentil Stew",
-                        mealType: "lunch",
-                        description: "Hearty Spanish-style lentil stew with vegetables and aromatic spices",
-                        imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
-                        servings: 3,
-                        ingredients: ["500g Red split lentils", "200g Onion", "200g Carrot", "15g Garlic", "450g Peas", "15g Tamari"],
-                        steps: ["Dice onions, carrots, and garlic finely", "Sauté vegetables in a large pot until soft", "Rinse lentils and add to pot with 2 liters broth", "Bring to boil, then simmer 25 minutes until lentils are tender", "Add peas and simmer another 5 minutes", "Season with tamari and serve hot"],
-                        nutrition: { calories: 1731.43, protein: 41.1, carbohydrates: 121.55, fat: 3, saturatedFat: 0.5, fiber: 25, sugar: 13.4 },
-                        radarChartData: [
-                            { category: "Calories", value: 173, fullValue: 1731 },
-                            { category: "Protein (g)", value: 41, fullValue: 41 },
-                            { category: "Carbs (g)", value: 122, fullValue: 122 },
-                            { category: "Fat (g)", value: 3, fullValue: 3 },
-                            { category: "Fiber (g)", value: 25, fullValue: 25 }
-                        ]
-                    }
-                ]
-            };
+        <div class="filters">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search recipes by name or ingredient..."
+                >
+            </div>
 
-            const [searchTerm, setSearchTerm] = useState('');
-            const [selectedMealType, setSelectedMealType] = useState('all');
-            const [selectedRecipe, setSelectedRecipe] = useState(null);
+            <div class="meal-filters">
+                <button class="meal-filter-btn active" data-type="all">All recipes</button>
+                <button class="meal-filter-btn" data-type="breakfast">Breakfast</button>
+                <button class="meal-filter-btn" data-type="lunch">Lunch</button>
+                <button class="meal-filter-btn" data-type="dinner">Dinner</button>
+            </div>
+        </div>
 
-            const filteredRecipes = useMemo(() => {
-                return recipesData.recipes.filter(recipe => {
-                    const matchesMealType = selectedMealType === 'all' || recipe.mealType === selectedMealType;
-                    const searchLower = searchTerm.toLowerCase();
-                    const matchesSearch = 
-                        recipe.name.toLowerCase().includes(searchLower) ||
-                        recipe.ingredients.some(ing => ing.toLowerCase().includes(searchLower));
-                    return matchesMealType && matchesSearch;
+        <div id="recipeGrid" class="recipe-grid"></div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <p>No recipes found</p>
+            <p>Try adjusting your search or filters</p>
+        </div>
+
+        <div class="footer">
+            <span id="recipeCount">Showing 6 of 6 recipes</span>
+        </div>
+    </div>
+
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Recipe Name</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const recipes = [
+            {
+                id: 1,
+                name: "Farofa de Ovo",
+                mealType: "breakfast",
+                description: "Traditional Brazilian egg farofa with cassava flour and olive oil",
+                imageUrl: "https://images.unsplash.com/photo-1585521537872-f90e99258e1e?w=400&h=300&fit=crop",
+                ingredients: ["2 Whole Eggs", "35g Farinha de mandioca", "15g Extra Virgin Olive Oil"],
+                steps: ["Heat olive oil in a pan over medium heat", "Crack eggs and scramble until cooked through", "Add cassava flour gradually while stirring", "Mix until golden and crumbly texture forms", "Season to taste and serve hot"],
+                nutrition: { calories: 391, protein: 13.02, carbohydrates: 30.8, fat: 24, saturatedFat: 4.65, fiber: 0, sugar: 0 }
+            },
+            {
+                id: 2,
+                name: "Chickpea Curry",
+                mealType: "lunch",
+                description: "Creamy coconut chickpea curry with tomatoes and aromatic spices",
+                imageUrl: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
+                ingredients: ["50g Onion", "20g Curry Powder Medium", "400g Chopped Tomato", "400g Chickpeas in Water", "400g Coconut Milk Light"],
+                steps: ["Dice onions and sauté in a large pot until soft", "Add curry powder and cook for 1-2 minutes until fragrant", "Add chopped tomatoes and simmer for 5 minutes", "Add drained chickpeas and coconut milk", "Simmer for 20 minutes until flavors combine", "Adjust seasoning and serve with rice"],
+                nutrition: { calories: 924, protein: 39.3, carbohydrates: 90.08, fat: 36.52, saturatedFat: 22.56, fiber: 15, sugar: 22.17 }
+            },
+            {
+                id: 3,
+                name: "Vitamina Bicudo",
+                mealType: "breakfast",
+                description: "Nutritious smoothie bowl with bananas, oats, and healthy fats",
+                imageUrl: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
+                ingredients: ["500g Almond roasted milk", "70g Oats Powder", "2 Bananas", "12g Flax Oil", "20g Honey", "2g Whey Protein"],
+                steps: ["Pour almond milk into a blender", "Add oats powder and blend until smooth", "Add sliced bananas and blend well", "Add flax oil and honey for sweetness", "Add whey protein powder and blend", "Pour into a bowl and serve immediately"],
+                nutrition: { calories: 700.94, protein: 14.82, carbohydrates: 95.87, fat: 25.75, saturatedFat: 3.68, fiber: 8, sugar: 55.38 }
+            },
+            {
+                id: 4,
+                name: "Falafel Wrap",
+                mealType: "lunch",
+                description: "Quick and delicious falafel wraps with hummus and vegetables",
+                imageUrl: "https://images.unsplash.com/photo-1585238341710-4b9c6c85eaeb?w=400&h=300&fit=crop",
+                ingredients: ["2 Falafel", "2 Wraps", "35g Hummus", "80g Mixed Peppers", "50g Onion", "10g Extra Virgin Olive Oil"],
+                steps: ["Warm the wraps in a dry pan or microwave", "Spread hummus on each wrap", "Place falafel in the center of wrap", "Add sliced peppers and onions", "Drizzle with olive oil", "Wrap tightly and serve with extra hummus"],
+                nutrition: { calories: 564.08, protein: 14.42, carbohydrates: 72.39, fat: 21.96, saturatedFat: 3.31, fiber: 10, sugar: 10.16 }
+            },
+            {
+                id: 5,
+                name: "Broccoli Delight",
+                mealType: "dinner",
+                description: "Creamy broccoli curry with peppers and coconut milk",
+                imageUrl: "https://images.unsplash.com/photo-1609501676725-7186f017a4b1?w=400&h=300&fit=crop",
+                ingredients: ["400g Broccoli", "300g Mixed Peppers", "7g Curry Powder", "400g Coconut Milk Light", "240g Red Kidney beans", "0.5 Lime"],
+                steps: ["Chop broccoli into florets and cut peppers into strips", "Heat coconut milk in a large pan", "Add curry powder and stir well", "Add broccoli and peppers, simmer 10 minutes", "Add kidney beans and warm through", "Squeeze fresh lime juice and serve hot"],
+                nutrition: { calories: 793.21, protein: 48.61, carbohydrates: 64.28, fat: 32.65, saturatedFat: 22.93, fiber: 18, sugar: 25.92 }
+            },
+            {
+                id: 6,
+                name: "Spanish Lentil Stew",
+                mealType: "lunch",
+                description: "Hearty Spanish-style lentil stew with vegetables and aromatic spices",
+                imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+                ingredients: ["500g Red split lentils", "200g Onion", "200g Carrot", "15g Garlic", "450g Peas", "15g Tamari"],
+                steps: ["Dice onions, carrots, and garlic finely", "Sauté vegetables in a large pot until soft", "Rinse lentils and add to pot with 2 liters broth", "Bring to boil, then simmer 25 minutes until lentils are tender", "Add peas and simmer another 5 minutes", "Season with tamari and serve hot"],
+                nutrition: { calories: 1731.43, protein: 41.1, carbohydrates: 121.55, fat: 3, saturatedFat: 0.5, fiber: 25, sugar: 13.4 }
+            }
+        ];
+
+        let selectedMealType = 'all';
+        let searchTerm = '';
+
+        function filterRecipes() {
+            const grid = document.getElementById('recipeGrid');
+            const noResults = document.getElementById('noResults');
+            const recipeCount = document.getElementById('recipeCount');
+
+            const filtered = recipes.filter(recipe => {
+                const matchesMealType = selectedMealType === 'all' || recipe.mealType === selectedMealType;
+                const searchLower = searchTerm.toLowerCase();
+                const matchesSearch = 
+                    recipe.name.toLowerCase().includes(searchLower) ||
+                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchLower));
+                return matchesMealType && matchesSearch;
+            });
+
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                recipeCount.textContent = `Showing 0 of ${recipes.length} recipes`;
+            } else {
+                grid.style.display = 'grid';
+                noResults.style.display = 'none';
+                filtered.forEach(recipe => {
+                    const card = createRecipeCard(recipe);
+                    grid.appendChild(card);
                 });
-            }, [searchTerm, selectedMealType]);
+                recipeCount.textContent = `Showing ${filtered.length} of ${recipes.length} recipes`;
+            }
+        }
 
-            const RecipeCard = ({ recipe }) => (
-                <div onClick={() => setSelectedRecipe(recipe)} style={{
-                    cursor: 'pointer',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    border: `1px solid var(--border)`,
-                    transition: 'all 0.2s',
-                    backgroundColor: 'var(--surface-1)'
-                }} onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-strong)'} onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border)'}>
-                    <img src={recipe.imageUrl} alt={recipe.name} style={{ width: '100%', height: '180px', objectFit: 'cover' }} />
-                    <div style={{ padding: '16px' }}>
-                        <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '4px', textTransform: 'capitalize' }}>
-                            {recipe.mealType}
-                        </div>
-                        <h3 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: 500, color: 'var(--text-primary)' }}>
-                            {recipe.name}
-                        </h3>
-                        <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                            {recipe.description}
-                        </p>
-                        <div style={{ marginTop: '12px', fontSize: '12px', color: 'var(--text-secondary)' }}>
-                            {recipe.nutrition.calories} kcal • {recipe.nutrition.protein.toFixed(0)}g protein
-                        </div>
+        function createRecipeCard(recipe) {
+            const card = document.createElement('div');
+            card.className = 'recipe-card';
+            card.innerHTML = `
+                <img src="${recipe.imageUrl}" alt="${recipe.name}" class="recipe-card-image" onerror="this.style.backgroundColor='var(--border)'">
+                <div class="recipe-card-content">
+                    <div class="recipe-meal-type">${recipe.mealType}</div>
+                    <h3>${recipe.name}</h3>
+                    <p>${recipe.description}</p>
+                    <div class="recipe-card-nutrition">
+                        ${Math.round(recipe.nutrition.calories)} kcal • ${Math.round(recipe.nutrition.protein)}g protein
                     </div>
                 </div>
-            );
+            `;
+            card.onclick = () => openModal(recipe);
+            return card;
+        }
 
-            const RecipeDetail = ({ recipe }) => (
-                <div style={{ 
-                    position: 'fixed', 
-                    top: 0, 
-                    left: 0, 
-                    right: 0, 
-                    bottom: 0, 
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                    padding: '16px'
-                }} onClick={() => setSelectedRecipe(null)}>
-                    <div style={{
-                        backgroundColor: 'var(--surface-2)',
-                        borderRadius: '12px',
-                        maxWidth: '800px',
-                        width: '100%',
-                        maxHeight: '90vh',
-                        overflowY: 'auto'
-                    }} onClick={(e) => e.stopPropagation()}>
-                        <div style={{ position: 'sticky', top: 0, backgroundColor: 'var(--surface-2)', padding: '16px', borderBottom: `1px solid var(--border)`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 10 }}>
-                            <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 500 }}>{recipe.name}</h2>
-                            <button onClick={() => setSelectedRecipe(null)} style={{
-                                background: 'none',
-                                border: 'none',
-                                fontSize: '24px',
-                                cursor: 'pointer',
-                                color: 'var(--text-secondary)',
-                                padding: '0',
-                                width: '32px',
-                                height: '32px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}>
-                                ✕
-                            </button>
-                        </div>
+        function openModal(recipe) {
+            const modal = document.getElementById('recipeModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
 
-                        <div style={{ padding: '24px' }}>
-                            <img src={recipe.imageUrl} alt={recipe.name} style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '12px', marginBottom: '24px' }} />
-
-                            <div style={{ marginBottom: '24px' }}>
-                                <h3 style={{ fontSize: '16px', fontWeight: 500, marginBottom: '12px', color: 'var(--text-primary)' }}>Ingredients</h3>
-                                <ul style={{ margin: 0, paddingLeft: '20px', color: 'var(--text-secondary)' }}>
-                                    {recipe.ingredients.map((ing, idx) => (
-                                        <li key={idx} style={{ marginBottom: '8px', lineHeight: 1.5 }}>{ing}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div style={{ marginBottom: '24px' }}>
-                                <h3 style={{ fontSize: '16px', fontWeight: 500, marginBottom: '12px', color: 'var(--text-primary)' }}>Steps to cook</h3>
-                                <ol style={{ margin: 0, paddingLeft: '20px', color: 'var(--text-secondary)' }}>
-                                    {recipe.steps.map((step, idx) => (
-                                        <li key={idx} style={{ marginBottom: '8px', lineHeight: 1.5 }}>{step}</li>
-                                    ))}
-                                </ol>
-                            </div>
-
-                            <div style={{ marginBottom: '24px' }}>
-                                <h3 style={{ fontSize: '16px', fontWeight: 500, marginBottom: '12px', color: 'var(--text-primary)' }}>Nutrition facts</h3>
-                                <div style={{ overflowX: 'auto' }}>
-                                    <table style={{
-                                        width: '100%',
-                                        borderCollapse: 'collapse',
-                                        fontSize: '14px'
-                                    }}>
-                                        <thead>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <th style={{ textAlign: 'left', padding: '8px 0', fontWeight: 500, color: 'var(--text-primary)' }}>Nutrient</th>
-                                                <th style={{ textAlign: 'right', padding: '8px 0', fontWeight: 500, color: 'var(--text-primary)' }}>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Calories</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.calories.toFixed(0)} kcal</td>
-                                            </tr>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Protein</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.protein.toFixed(1)}g</td>
-                                            </tr>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Carbohydrates</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.carbohydrates.toFixed(1)}g</td>
-                                            </tr>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Fat</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.fat.toFixed(1)}g</td>
-                                            </tr>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Saturated fat</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.saturatedFat.toFixed(1)}g</td>
-                                            </tr>
-                                            <tr style={{ borderBottom: `1px solid var(--border)` }}>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Fiber</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.fiber.toFixed(1)}g</td>
-                                            </tr>
-                                            <tr>
-                                                <td style={{ padding: '8px 0', color: 'var(--text-secondary)' }}>Sugar</td>
-                                                <td style={{ textAlign: 'right', padding: '8px 0', color: 'var(--text-secondary)' }}>{recipe.nutrition.sugar.toFixed(1)}g</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 style={{ fontSize: '16px', fontWeight: 500, marginBottom: '12px', color: 'var(--text-primary)' }}>Nutrition breakdown</h3>
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <RadarChart data={recipe.radarChartData}>
-                                        <PolarGrid stroke="var(--border)" />
-                                        <PolarAngleAxis dataKey="category" stroke="var(--text-secondary)" style={{ fontSize: '12px' }} />
-                                        <PolarRadiusAxis stroke="var(--border)" style={{ fontSize: '12px' }} />
-                                        <Radar name="Amount" dataKey="value" stroke="var(--text-accent)" fill="var(--text-accent)" fillOpacity={0.6} />
-                                        <Tooltip contentStyle={{
-                                            backgroundColor: 'var(--surface-1)',
-                                            border: `1px solid var(--border)`,
-                                            borderRadius: '8px',
-                                            color: 'var(--text-primary)',
-                                            fontSize: '12px'
-                                        }} formatter={(value, name, props) => [`${props.payload.fullValue.toFixed(0)}`, name]} />
-                                    </RadarChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-                    </div>
+            title.textContent = recipe.name;
+            body.innerHTML = `
+                <img src="${recipe.imageUrl}" alt="${recipe.name}" class="modal-image" onerror="this.style.backgroundColor='var(--border)'">
+                
+                <div class="section">
+                    <h3>Ingredients</h3>
+                    <ul>
+                        ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                    </ul>
                 </div>
-            );
 
-            return (
-                <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
-                    <h1 style={{ fontSize: '22px', fontWeight: 500, marginBottom: '4px', color: 'var(--text-primary)' }}>My recipes</h1>
-                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '24px' }}>Browse and filter your favorite recipes</p>
-
-                    <div style={{ marginBottom: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        <div style={{ position: 'relative' }}>
-                            <span style={{
-                                position: 'absolute',
-                                left: '12px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                color: 'var(--text-secondary)',
-                                fontSize: '18px'
-                            }}>🔍</span>
-                            <input
-                                type="text"
-                                placeholder="Search recipes by name or ingredient..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                style={{
-                                    width: '100%',
-                                    padding: '10px 12px 10px 40px',
-                                    border: `1px solid var(--border)`,
-                                    borderRadius: 'var(--radius)',
-                                    fontSize: '14px',
-                                    fontFamily: 'var(--font-sans)',
-                                    backgroundColor: 'var(--surface-2)',
-                                    color: 'var(--text-primary)',
-                                    boxSizing: 'border-box'
-                                }}
-                            />
-                        </div>
-
-                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                            {['all', 'breakfast', 'lunch', 'dinner'].map(type => (
-                                <button
-                                    key={type}
-                                    onClick={() => setSelectedMealType(type)}
-                                    style={{
-                                        padding: '8px 16px',
-                                        border: `1px solid ${selectedMealType === type ? 'var(--border-strong)' : 'var(--border)'}`,
-                                        borderRadius: 'var(--radius)',
-                                        backgroundColor: selectedMealType === type ? 'var(--bg-accent)' : 'var(--surface-1)',
-                                        color: selectedMealType === type ? 'white' : 'var(--text-primary)',
-                                        cursor: 'pointer',
-                                        fontSize: '13px',
-                                        fontWeight: 500,
-                                        textTransform: 'capitalize',
-                                        transition: 'all 0.2s',
-                                        fontFamily: 'var(--font-sans)'
-                                    }}
-                                >
-                                    {type === 'all' ? 'All recipes' : type}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {filteredRecipes.length === 0 ? (
-                        <div style={{ textAlign: 'center', padding: '48px 24px', color: 'var(--text-secondary)' }}>
-                            <p style={{ fontSize: '16px', marginBottom: '8px' }}>No recipes found</p>
-                            <p style={{ fontSize: '14px' }}>Try adjusting your search or filters</p>
-                        </div>
-                    ) : (
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                            gap: '16px',
-                            marginBottom: '24px'
-                        }}>
-                            {filteredRecipes.map(recipe => (
-                                <RecipeCard key={recipe.id} recipe={recipe} />
-                            ))}
-                        </div>
-                    )}
-
-                    {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />}
-
-                    <div style={{ fontSize: '12px', color: 'var(--text-secondary)', textAlign: 'center', marginTop: '32px', paddingTop: '24px', borderTop: `1px solid var(--border)` }}>
-                        Showing {filteredRecipes.length} of {recipesData.recipes.length} recipes
-                    </div>
+                <div class="section">
+                    <h3>Steps to cook</h3>
+                    <ol>
+                        ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
+                    </ol>
                 </div>
-            );
-        };
 
-        ReactDOM.render(<RecipeWebsite />, document.getElementById('root'));
+                <div class="section">
+                    <h3>Nutrition facts</h3>
+                    <table class="nutrition-table">
+                        <tr>
+                            <th>Nutrient</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td>Calories</td>
+                            <td>${recipe.nutrition.calories.toFixed(0)} kcal</td>
+                        </tr>
+                        <tr>
+                            <td>Protein</td>
+                            <td>${recipe.nutrition.protein.toFixed(1)}g</td>
+                        </tr>
+                        <tr>
+                            <td>Carbohydrates</td>
+                            <td>${recipe.nutrition.carbohydrates.toFixed(1)}g</td>
+                        </tr>
+                        <tr>
+                            <td>Fat</td>
+                            <td>${recipe.nutrition.fat.toFixed(1)}g</td>
+                        </tr>
+                        <tr>
+                            <td>Saturated fat</td>
+                            <td>${recipe.nutrition.saturatedFat.toFixed(1)}g</td>
+                        </tr>
+                        <tr>
+                            <td>Fiber</td>
+                            <td>${recipe.nutrition.fiber.toFixed(1)}g</td>
+                        </tr>
+                        <tr>
+                            <td>Sugar</td>
+                            <td>${recipe.nutrition.sugar.toFixed(1)}g</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Nutrition breakdown</h3>
+                    <svg viewBox="0 0 300 300" class="radar-chart">
+                        <circle cx="150" cy="150" r="30" fill="none" stroke="var(--border)" stroke-width="1"/>
+                        <circle cx="150" cy="150" r="60" fill="none" stroke="var(--border)" stroke-width="1"/>
+                        <circle cx="150" cy="150" r="90" fill="none" stroke="var(--border)" stroke-width="1"/>
+                        
+                        <line x1="150" y1="10" x2="150" y2="290" stroke="var(--border)" stroke-width="1"/>
+                        <line x1="10" y1="150" x2="290" y2="150" stroke="var(--border)" stroke-width="1"/>
+                        <line x1="60" y1="60" x2="240" y2="240" stroke="var(--border)" stroke-width="1"/>
+                        <line x1="240" y1="60" x2="60" y2="240" stroke="var(--border)" stroke-width="1"/>
+                        
+                        <polygon points="150,50 200,100 175,175 125,175 100,100" fill="rgba(59, 130, 246, 0.3)" stroke="var(--text-accent)" stroke-width="2"/>
+                        
+                        <text x="150" y="25" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Protein</text>
+                        <text x="220" y="155" text-anchor="start" font-size="11" fill="var(--text-secondary)">Carbs</text>
+                        <text x="150" y="280" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Fat</text>
+                        <text x="80" y="155" text-anchor="end" font-size="11" fill="var(--text-secondary)">Fiber</text>
+                        <text x="130" y="85" text-anchor="middle" font-size="11" fill="var(--text-secondary)">Calories</text>
+                    </svg>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('recipeModal');
+            modal.classList.remove('active');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            filterRecipes();
+        });
+
+        document.querySelectorAll('.meal-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.meal-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedMealType = btn.dataset.type;
+                filterRecipes();
+            });
+        });
+
+        filterRecipes();
     </script>
 </body>
 </html>
