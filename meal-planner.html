@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner & Nutrition Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --surface-0: #f5f5f5;
+            --surface-1: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-accent: #3b82f6;
+            --border: #e5e5e5;
+            --border-strong: #d0d0d0;
+            --bg-accent: #3b82f6;
+            --bg-success: #10b981;
+            --bg-warning: #f59e0b;
+            --radius: 8px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface-0: #1a1a1a;
+                --surface-1: #2d2d2d;
+                --text-primary: #ffffff;
+                --text-secondary: #b0b0b0;
+                --border: #404040;
+                --border-strong: #505050;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--surface-0);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background-color: var(--surface-1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 14px;
+            background-color: var(--surface-1);
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--bg-accent);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.danger {
+            background-color: #ef4444;
+            border-color: #ef4444;
+        }
+
+        button.secondary {
+            background-color: transparent;
+            color: var(--text-accent);
+            border-color: var(--border);
+        }
+
+        button.secondary:hover {
+            background-color: var(--surface-0);
+        }
+
+        .recipe-selector {
+            margin-bottom: 20px;
+        }
+
+        .recipe-selector select {
+            margin-bottom: 8px;
+        }
+
+        .recipe-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .recipe-input input {
+            flex: 1;
+        }
+
+        .recipe-input button {
+            padding: 8px 12px;
+        }
+
+        .recipe-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .recipe-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+            font-size: 13px;
+        }
+
+        .recipe-row-info {
+            flex: 1;
+        }
+
+        .recipe-row-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .recipe-row-nutrition {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .recipe-row-qty {
+            font-weight: 500;
+            color: var(--text-accent);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .recipe-row-delete {
+            padding: 4px 8px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .summary-card {
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+        }
+
+        .summary-value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .calculator-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, var(--bg-accent), #2563eb);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .result-card-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-card-value {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .result-card-unit {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .result-card.tmb {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .result-card.nap {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+
+        .result-card.cs {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .protein-summary {
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .protein-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .protein-item:last-child {
+            margin-bottom: 0;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 32px 16px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--text-accent);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to recipes</a>
+        <h1>Meal Planner & Nutrition Calculator</h1>
+
+        <div class="layout">
+            <!-- Left Column: Meal Planner -->
+            <div>
+                <div class="section">
+                    <div class="section-title">📋 Select Recipes</div>
+                    
+                    <div class="recipe-selector">
+                        <label for="recipeSelect">Choose a recipe:</label>
+                        <select id="recipeSelect">
+                            <option value="">-- Select a recipe --</option>
+                        </select>
+                        
+                        <label for="recipeQty">Quantity (grams):</label>
+                        <div class="recipe-input">
+                            <input type="number" id="recipeQty" placeholder="100" value="100" min="1">
+                            <button onclick="addRecipeToMeal()">Add</button>
+                        </div>
+                        <p class="info-text">Quantities are approximate based on serving size</p>
+                    </div>
+
+                    <div id="selectedRecipes" class="recipe-list"></div>
+
+                    <button class="secondary" onclick="clearAllRecipes()" style="width: 100%; margin-top: 16px;">Clear All</button>
+                </div>
+
+                <!-- Nutrition Summary -->
+                <div class="section" style="margin-top: 24px;">
+                    <div class="section-title">📊 Nutrition Summary</div>
+                    <div id="nutritionSummary">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🍽️</div>
+                            <p>Select recipes to see nutrition totals</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Calculator -->
+            <div>
+                <div class="section">
+                    <div class="section-title">⚙️ Calorie Calculator</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" value="58" step="0.1" oninput="calculateTBM()">
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" value="154" step="0.1" oninput="calculateTBM()">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age (years)</label>
+                            <input type="number" id="age" value="35" step="1" oninput="calculateTBM()">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" onchange="calculateTBM()">
+                                <option value="F">Female</option>
+                                <option value="M">Male</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity">Physical Activity Level</label>
+                        <select id="activity" onchange="calculateTBM()">
+                            <option value="1.2">Sedentary (little or no exercise)</option>
+                            <option value="1.375">Slightly Active (1-3 days/week)</option>
+                            <option value="1.55" selected>Moderately Active (3-5 days/week)</option>
+                            <option value="1.725">Vigorously Active (6-7 days/week)</option>
+                            <option value="1.9">Extremely Active (physical job or training)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="calorieAdj">Calorie Adjustment</label>
+                            <input type="number" id="calorieAdj" value="-300" step="50" oninput="calculateTBM()">
+                            <p class="info-text">Negative = deficit, Positive = surplus</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="proteinPerKg">Protein (g/kg/day)</label>
+                            <input type="number" id="proteinPerKg" value="1.4" step="0.1" oninput="updateProteinGoal()">
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div id="calculatorResults" class="calculator-results" style="display: none;"></div>
+
+                    <div class="protein-summary" id="proteinSummary" style="display: none;">
+                        <div class="protein-item">
+                            <span class="summary-label">Your Weight:</span>
+                            <span class="summary-value"><span id="proteinWeight">58</span> kg</span>
+                        </div>
+                        <div class="protein-item">
+                            <span class="summary-label">Protein per kg:</span>
+                            <span class="summary-value"><span id="proteinPerKgDisplay">1.4</span> g</span>
+                        </div>
+                        <div class="protein-item">
+                            <span class="summary-label"><strong>Daily Protein Goal:</strong></span>
+                            <span class="summary-value"><strong><span id="proteinGoal">81</span> g</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const recipes = [
+            {
+                id: 1,
+                name: "Farofa de Ovo",
+                nutrition: { calories: 391, protein: 13.02, carbohydrates: 30.8, fat: 24, saturatedFat: 4.65, fiber: 0, sugar: 0 },
+                baseWeight: 150
+            },
+            {
+                id: 2,
+                name: "Chickpea Curry",
+                nutrition: { calories: 924, protein: 39.3, carbohydrates: 90.08, fat: 36.52, saturatedFat: 22.56, fiber: 15, sugar: 22.17 },
+                baseWeight: 1670
+            },
+            {
+                id: 3,
+                name: "Vitamina Bicudo",
+                nutrition: { calories: 700.94, protein: 14.82, carbohydrates: 95.87, fat: 25.75, saturatedFat: 3.68, fiber: 8, sugar: 55.38 },
+                baseWeight: 600
+            },
+            {
+                id: 4,
+                name: "Falafel Wrap",
+                nutrition: { calories: 564.08, protein: 14.42, carbohydrates: 72.39, fat: 21.96, saturatedFat: 3.31, fiber: 10, sugar: 10.16 },
+                baseWeight: 300
+            },
+            {
+                id: 5,
+                name: "Broccoli Delight",
+                nutrition: { calories: 793.21, protein: 48.61, carbohydrates: 64.28, fat: 32.65, saturatedFat: 22.93, fiber: 18, sugar: 25.92 },
+                baseWeight: 1340
+            },
+            {
+                id: 6,
+                name: "Spanish Lentil Stew",
+                nutrition: { calories: 1731.43, protein: 41.1, carbohydrates: 121.55, fat: 3, saturatedFat: 0.5, fiber: 25, sugar: 13.4 },
+                baseWeight: 3000
+            }
+        ];
+
+        let selectedMeals = [];
+
+        // Initialize recipe selector
+        function initRecipeSelector() {
+            const select = document.getElementById('recipeSelect');
+            recipes.forEach(recipe => {
+                const option = document.createElement('option');
+                option.value = recipe.id;
+                option.textContent = recipe.name;
+                select.appendChild(option);
+            });
+        }
+
+        function addRecipeToMeal() {
+            const recipeId = parseInt(document.getElementById('recipeSelect').value);
+            const quantity = parseInt(document.getElementById('recipeQty').value) || 100;
+
+            if (!recipeId) {
+                alert('Please select a recipe');
+                return;
+            }
+
+            const recipe = recipes.find(r => r.id === recipeId);
+            selectedMeals.push({
+                recipe: recipe,
+                quantity: quantity,
+                id: Date.now()
+            });
+
+            document.getElementById('recipeSelect').value = '';
+            document.getElementById('recipeQty').value = '100';
+            
+            updateMealDisplay();
+            updateNutritionSummary();
+        }
+
+        function removeRecipe(mealId) {
+            selectedMeals = selectedMeals.filter(m => m.id !== mealId);
+            updateMealDisplay();
+            updateNutritionSummary();
+        }
+
+        function clearAllRecipes() {
+            selectedMeals = [];
+            updateMealDisplay();
+            updateNutritionSummary();
+        }
+
+        function updateMealDisplay() {
+            const container = document.getElementById('selectedRecipes');
+            
+            if (selectedMeals.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = selectedMeals.map(meal => {
+                const cal = (meal.recipe.nutrition.calories / meal.recipe.baseWeight) * meal.quantity;
+                const protein = (meal.recipe.nutrition.protein / meal.recipe.baseWeight) * meal.quantity;
+                
+                return `
+                    <div class="recipe-row">
+                        <div class="recipe-row-info">
+                            <div class="recipe-row-name">${meal.recipe.name}</div>
+                            <div class="recipe-row-nutrition">${cal.toFixed(0)} cal • ${protein.toFixed(1)}g protein</div>
+                        </div>
+                        <div class="recipe-row-qty">${meal.quantity}g</div>
+                        <button class="recipe-row-delete danger" onclick="removeRecipe(${meal.id})">Remove</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateNutritionSummary() {
+            const summary = document.getElementById('nutritionSummary');
+            
+            if (selectedMeals.length === 0) {
+                summary.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🍽️</div>
+                        <p>Select recipes to see nutrition totals</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const totals = {
+                calories: 0,
+                protein: 0,
+                fat: 0,
+                saturatedFat: 0,
+                fiber: 0,
+                sugar: 0
+            };
+
+            selectedMeals.forEach(meal => {
+                const ratio = meal.quantity / meal.recipe.baseWeight;
+                totals.calories += meal.recipe.nutrition.calories * ratio;
+                totals.protein += meal.recipe.nutrition.protein * ratio;
+                totals.fat += meal.recipe.nutrition.fat * ratio;
+                totals.saturatedFat += meal.recipe.nutrition.saturatedFat * ratio;
+                totals.fiber += meal.recipe.nutrition.fiber * ratio;
+                totals.sugar += meal.recipe.nutrition.sugar * ratio;
+            });
+
+            summary.innerHTML = `
+                <div class="summary-card">
+                    <div class="summary-item">
+                        <span class="summary-label">Calories</span>
+                        <span class="summary-value">${totals.calories.toFixed(0)} kcal</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Protein</span>
+                        <span class="summary-value">${totals.protein.toFixed(1)}g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Fat</span>
+                        <span class="summary-value">${totals.fat.toFixed(1)}g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Saturated Fat</span>
+                        <span class="summary-value">${totals.saturatedFat.toFixed(1)}g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Fiber</span>
+                        <span class="summary-value">${totals.fiber.toFixed(1)}g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Sugar</span>
+                        <span class="summary-value">${totals.sugar.toFixed(1)}g</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateTBM() {
+            const weight = parseFloat(document.getElementById('weight').value) || 58;
+            const height = parseFloat(document.getElementById('height').value) || 154;
+            const age = parseFloat(document.getElementById('age').value) || 35;
+            const gender = document.getElementById('gender').value;
+            const activity = parseFloat(document.getElementById('activity').value) || 1.55;
+            const calorieAdj = parseFloat(document.getElementById('calorieAdj').value) || -300;
+
+            // Calculate TMB (Basal Metabolic Rate)
+            let tmb;
+            if (gender === 'F') {
+                tmb = (9.6 * weight) + (1.8 * height) - (4.7 * age) + 655;
+            } else {
+                tmb = (13.7 * weight) + (5 * height) - (6.8 * age) + 66;
+            }
+
+            // Calculate TMB + NAP
+            const tmbNap = tmb * activity;
+
+            // Calculate TMB + NAP + CS
+            const tmbNapCs = tmbNap + calorieAdj;
+
+            // Display results
+            const resultsContainer = document.getElementById('calculatorResults');
+            resultsContainer.innerHTML = `
+                <div class="result-card tmb">
+                    <div class="result-card-label">TMB (Basal)</div>
+                    <div class="result-card-value">${tmb.toFixed(0)}</div>
+                    <div class="result-card-unit">calories/day</div>
+                </div>
+                <div class="result-card nap">
+                    <div class="result-card-label">TMB + Activity</div>
+                    <div class="result-card-value">${tmbNap.toFixed(0)}</div>
+                    <div class="result-card-unit">calories/day</div>
+                </div>
+                <div class="result-card cs">
+                    <div class="result-card-label">Target Intake</div>
+                    <div class="result-card-value">${tmbNapCs.toFixed(0)}</div>
+                    <div class="result-card-unit">calories/day</div>
+                </div>
+            `;
+            resultsContainer.style.display = 'grid';
+
+            // Update protein goal
+            updateProteinGoal();
+        }
+
+        function updateProteinGoal() {
+            const weight = parseFloat(document.getElementById('weight').value) || 58;
+            const proteinPerKg = parseFloat(document.getElementById('proteinPerKg').value) || 1.4;
+            const proteinGoal = weight * proteinPerKg;
+
+            document.getElementById('proteinWeight').textContent = weight;
+            document.getElementById('proteinPerKgDisplay').textContent = proteinPerKg;
+            document.getElementById('proteinGoal').textContent = proteinGoal.toFixed(0);
+
+            const summary = document.getElementById('proteinSummary');
+            summary.style.display = 'block';
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initRecipeSelector();
+            calculateTBM();
+            updateNutritionSummary();
+        });
+    </script>
+</body>
+</html>
