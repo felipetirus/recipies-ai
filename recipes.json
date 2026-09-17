@@ -1,0 +1,457 @@
+[
+  {
+    "id": 1,
+    "name": "Farofa de Ovo",
+    "mealType": "breakfast",
+    "description": "Traditional Brazilian egg farofa with cassava flour and olive oil",
+    "imageUrl": "https://images.unsplash.com/photo-1585521537872-f90e99258e1e?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 150,
+    "ingredients": [
+      {
+        "quantity": "2",
+        "unit": "whole",
+        "name": "Eggs",
+        "calories": 78,
+        "protein": 6.3,
+        "carbohydrates": 0.6,
+        "fat": 5.3
+      },
+      {
+        "quantity": "35",
+        "unit": "g",
+        "name": "Farinha de mandioca",
+        "calories": 128,
+        "protein": 1.2,
+        "carbohydrates": 28.7,
+        "fat": 0.4
+      },
+      {
+        "quantity": "15",
+        "unit": "g",
+        "name": "Extra Virgin Olive Oil",
+        "calories": 135,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fat": 15
+      }
+    ],
+    "steps": [
+      "Heat olive oil in a pan over medium heat",
+      "Crack eggs and scramble until cooked through",
+      "Add cassava flour gradually while stirring",
+      "Mix until golden and crumbly texture forms",
+      "Season to taste and serve hot"
+    ],
+    "nutrition": {
+      "calories": 391,
+      "protein": 13.02,
+      "carbohydrates": 30.8,
+      "fat": 24,
+      "saturatedFat": 4.65,
+      "fiber": 0,
+      "sugar": 0
+    }
+  },
+  {
+    "id": 2,
+    "name": "Chickpea Curry",
+    "mealType": "lunch",
+    "description": "Creamy coconut chickpea curry with tomatoes and aromatic spices",
+    "imageUrl": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 1670,
+    "ingredients": [
+      {
+        "quantity": "50",
+        "unit": "g",
+        "name": "Onion",
+        "calories": 20,
+        "protein": 0.6,
+        "carbohydrates": 4.7,
+        "fat": 0.1
+      },
+      {
+        "quantity": "20",
+        "unit": "g",
+        "name": "Curry Powder Medium",
+        "calories": 55,
+        "protein": 2.4,
+        "carbohydrates": 8.5,
+        "fat": 2.6
+      },
+      {
+        "quantity": "400",
+        "unit": "g",
+        "name": "Chopped Tomato",
+        "calories": 72,
+        "protein": 3.6,
+        "carbohydrates": 15.6,
+        "fat": 0.8
+      },
+      {
+        "quantity": "400",
+        "unit": "g",
+        "name": "Chickpeas in Water",
+        "calories": 376,
+        "protein": 20.4,
+        "carbohydrates": 63.2,
+        "fat": 6.4
+      },
+      {
+        "quantity": "400",
+        "unit": "g",
+        "name": "Coconut Milk Light",
+        "calories": 200,
+        "protein": 2.4,
+        "carbohydrates": 10,
+        "fat": 18
+      }
+    ],
+    "steps": [
+      "Dice onions and sauté in a large pot until soft",
+      "Add curry powder and cook for 1-2 minutes until fragrant",
+      "Add chopped tomatoes and simmer for 5 minutes",
+      "Add drained chickpeas and coconut milk",
+      "Simmer for 20 minutes until flavors combine",
+      "Adjust seasoning and serve with rice"
+    ],
+    "nutrition": {
+      "calories": 924,
+      "protein": 39.3,
+      "carbohydrates": 90.08,
+      "fat": 36.52,
+      "saturatedFat": 22.56,
+      "fiber": 15,
+      "sugar": 22.17
+    }
+  },
+  {
+    "id": 3,
+    "name": "Vitamina Bicudo",
+    "mealType": "breakfast",
+    "description": "Nutritious smoothie bowl with bananas, oats, and healthy fats",
+    "imageUrl": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 600,
+    "ingredients": [
+      {
+        "quantity": "500",
+        "unit": "g",
+        "name": "Almond roasted milk",
+        "calories": 120,
+        "protein": 4,
+        "carbohydrates": 8,
+        "fat": 8
+      },
+      {
+        "quantity": "70",
+        "unit": "g",
+        "name": "Oats Powder",
+        "calories": 270,
+        "protein": 10,
+        "carbohydrates": 45,
+        "fat": 5
+      },
+      {
+        "quantity": "2",
+        "unit": "whole",
+        "name": "Bananas",
+        "calories": 210,
+        "protein": 2.6,
+        "carbohydrates": 54,
+        "fat": 0.8
+      },
+      {
+        "quantity": "12",
+        "unit": "g",
+        "name": "Flax Oil",
+        "calories": 108,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fat": 12
+      },
+      {
+        "quantity": "20",
+        "unit": "g",
+        "name": "Honey",
+        "calories": 60,
+        "protein": 0.1,
+        "carbohydrates": 17,
+        "fat": 0
+      },
+      {
+        "quantity": "2",
+        "unit": "g",
+        "name": "Whey Protein",
+        "calories": 8,
+        "protein": 1.6,
+        "carbohydrates": 0.2,
+        "fat": 0.1
+      }
+    ],
+    "steps": [
+      "Pour almond milk into a blender",
+      "Add oats powder and blend until smooth",
+      "Add sliced bananas and blend well",
+      "Add flax oil and honey for sweetness",
+      "Add whey protein powder and blend",
+      "Pour into a bowl and serve immediately"
+    ],
+    "nutrition": {
+      "calories": 700.94,
+      "protein": 14.82,
+      "carbohydrates": 95.87,
+      "fat": 25.75,
+      "saturatedFat": 3.68,
+      "fiber": 8,
+      "sugar": 55.38
+    }
+  },
+  {
+    "id": 4,
+    "name": "Falafel Wrap",
+    "mealType": "lunch",
+    "description": "Quick and delicious falafel wraps with hummus and vegetables",
+    "imageUrl": "https://images.unsplash.com/photo-1585238341710-4b9c6c85eaeb?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 300,
+    "ingredients": [
+      {
+        "quantity": "2",
+        "unit": "whole",
+        "name": "Falafel",
+        "calories": 200,
+        "protein": 8,
+        "carbohydrates": 24,
+        "fat": 8
+      },
+      {
+        "quantity": "2",
+        "unit": "whole",
+        "name": "Wraps",
+        "calories": 180,
+        "protein": 6,
+        "carbohydrates": 30,
+        "fat": 4
+      },
+      {
+        "quantity": "35",
+        "unit": "g",
+        "name": "Hummus",
+        "calories": 70,
+        "protein": 3,
+        "carbohydrates": 6,
+        "fat": 4
+      },
+      {
+        "quantity": "80",
+        "unit": "g",
+        "name": "Mixed Peppers",
+        "calories": 24,
+        "protein": 0.8,
+        "carbohydrates": 5.6,
+        "fat": 0.2
+      },
+      {
+        "quantity": "50",
+        "unit": "g",
+        "name": "Onion",
+        "calories": 20,
+        "protein": 0.6,
+        "carbohydrates": 4.7,
+        "fat": 0.1
+      },
+      {
+        "quantity": "10",
+        "unit": "g",
+        "name": "Extra Virgin Olive Oil",
+        "calories": 90,
+        "protein": 0,
+        "carbohydrates": 0,
+        "fat": 10
+      }
+    ],
+    "steps": [
+      "Warm the wraps in a dry pan or microwave",
+      "Spread hummus on each wrap",
+      "Place falafel in the center of wrap",
+      "Add sliced peppers and onions",
+      "Drizzle with olive oil",
+      "Wrap tightly and serve with extra hummus"
+    ],
+    "nutrition": {
+      "calories": 564.08,
+      "protein": 14.42,
+      "carbohydrates": 72.39,
+      "fat": 21.96,
+      "saturatedFat": 3.31,
+      "fiber": 10,
+      "sugar": 10.16
+    }
+  },
+  {
+    "id": 5,
+    "name": "Broccoli Delight",
+    "mealType": "dinner",
+    "description": "Creamy broccoli curry with peppers and coconut milk",
+    "imageUrl": "https://images.unsplash.com/photo-1609501676725-7186f017a4b1?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 1340,
+    "ingredients": [
+      {
+        "quantity": "400",
+        "unit": "g",
+        "name": "Broccoli",
+        "calories": 136,
+        "protein": 10.8,
+        "carbohydrates": 26.4,
+        "fat": 1.6
+      },
+      {
+        "quantity": "300",
+        "unit": "g",
+        "name": "Mixed Peppers",
+        "calories": 90,
+        "protein": 2.4,
+        "carbohydrates": 21,
+        "fat": 0.9
+      },
+      {
+        "quantity": "7",
+        "unit": "g",
+        "name": "Curry Powder",
+        "calories": 19,
+        "protein": 0.8,
+        "carbohydrates": 3,
+        "fat": 0.9
+      },
+      {
+        "quantity": "400",
+        "unit": "g",
+        "name": "Coconut Milk Light",
+        "calories": 200,
+        "protein": 2.4,
+        "carbohydrates": 10,
+        "fat": 18
+      },
+      {
+        "quantity": "240",
+        "unit": "g",
+        "name": "Red Kidney beans",
+        "calories": 216,
+        "protein": 15.6,
+        "carbohydrates": 38.4,
+        "fat": 0.7
+      },
+      {
+        "quantity": "0.5",
+        "unit": "whole",
+        "name": "Lime",
+        "calories": 10,
+        "protein": 0.1,
+        "carbohydrates": 3.2,
+        "fat": 0.1
+      }
+    ],
+    "steps": [
+      "Chop broccoli into florets and cut peppers into strips",
+      "Heat coconut milk in a large pan",
+      "Add curry powder and stir well",
+      "Add broccoli and peppers, simmer 10 minutes",
+      "Add kidney beans and warm through",
+      "Squeeze fresh lime juice and serve hot"
+    ],
+    "nutrition": {
+      "calories": 793.21,
+      "protein": 48.61,
+      "carbohydrates": 64.28,
+      "fat": 32.65,
+      "saturatedFat": 22.93,
+      "fiber": 18,
+      "sugar": 25.92
+    }
+  },
+  {
+    "id": 6,
+    "name": "Spanish Lentil Stew",
+    "mealType": "lunch",
+    "description": "Hearty Spanish-style lentil stew with vegetables and aromatic spices",
+    "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+    "quantityPerServing": 100,
+    "baseWeight": 3000,
+    "ingredients": [
+      {
+        "quantity": "500",
+        "unit": "g",
+        "name": "Red split lentils",
+        "calories": 1770,
+        "protein": 40,
+        "carbohydrates": 300,
+        "fat": 6
+      },
+      {
+        "quantity": "200",
+        "unit": "g",
+        "name": "Onion",
+        "calories": 80,
+        "protein": 2.4,
+        "carbohydrates": 18.8,
+        "fat": 0.4
+      },
+      {
+        "quantity": "200",
+        "unit": "g",
+        "name": "Carrot",
+        "calories": 82,
+        "protein": 1.8,
+        "carbohydrates": 19.2,
+        "fat": 0.4
+      },
+      {
+        "quantity": "15",
+        "unit": "g",
+        "name": "Garlic",
+        "calories": 22,
+        "protein": 1.1,
+        "carbohydrates": 4.9,
+        "fat": 0.1
+      },
+      {
+        "quantity": "450",
+        "unit": "g",
+        "name": "Peas",
+        "calories": 351,
+        "protein": 23.4,
+        "carbohydrates": 62.1,
+        "fat": 1.4
+      },
+      {
+        "quantity": "15",
+        "unit": "g",
+        "name": "Tamari",
+        "calories": 18,
+        "protein": 2.4,
+        "carbohydrates": 1.8,
+        "fat": 0
+      }
+    ],
+    "steps": [
+      "Dice onions, carrots, and garlic finely",
+      "Sauté vegetables in a large pot until soft",
+      "Rinse lentils and add to pot with 2 liters broth",
+      "Bring to boil, then simmer 25 minutes until lentils are tender",
+      "Add peas and simmer another 5 minutes",
+      "Season with tamari and serve hot"
+    ],
+    "nutrition": {
+      "calories": 1731.43,
+      "protein": 41.1,
+      "carbohydrates": 121.55,
+      "fat": 3,
+      "saturatedFat": 0.5,
+      "fiber": 25,
+      "sugar": 13.4
+    }
+  }
+]

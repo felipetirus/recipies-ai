@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "name": "Felipe",
+    "calculatorSettings": {
+      "weight": 58,
+      "height": 154,
+      "age": 35,
+      "gender": "M",
+      "activity": 1.55,
+      "calorieAdj": -300,
+      "proteinPerKg": 1.4
+    },
+    "mealPlans": [
+      {
+        "id": 1,
+        "name": "Balanced Diet",
+        "description": "A balanced diet with moderate protein and carbs",
+        "meals": [
+          {
+            "recipeId": 1,
+            "quantity": 100
+          },
+          {
+            "recipeId": 2,
+            "quantity": 150
+          },
+          {
+            "recipeId": 5,
+            "quantity": 120
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "High Protein Diet",
+        "description": "High protein diet for muscle building",
+        "meals": [
+          {
+            "recipeId": 3,
+            "quantity": 100
+          },
+          {
+            "recipeId": 2,
+            "quantity": 200
+          },
+          {
+            "recipeId": 5,
+            "quantity": 150
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Low Carb Diet",
+        "description": "Low carbohydrate diet for weight management",
+        "meals": [
+          {
+            "recipeId": 1,
+            "quantity": 100
+          },
+          {
+            "recipeId": 4,
+            "quantity": 100
+          },
+          {
+            "recipeId": 5,
+            "quantity": 100
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Camila",
+    "calculatorSettings": {
+      "weight": 55,
+      "height": 160,
+      "age": 30,
+      "gender": "F",
+      "activity": 1.375,
+      "calorieAdj": -200,
+      "proteinPerKg": 1.2
+    },
+    "mealPlans": [
+      {
+        "id": 1,
+        "name": "Balanced Diet",
+        "description": "A balanced diet with moderate protein and carbs",
+        "meals": [
+          {
+            "recipeId": 3,
+            "quantity": 100
+          },
+          {
+            "recipeId": 2,
+            "quantity": 120
+          },
+          {
+            "recipeId": 5,
+            "quantity": 100
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "High Protein Diet",
+        "description": "High protein diet for muscle building",
+        "meals": [
+          {
+            "recipeId": 1,
+            "quantity": 100
+          },
+          {
+            "recipeId": 2,
+            "quantity": 150
+          },
+          {
+            "recipeId": 6,
+            "quantity": 100
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Low Carb Diet",
+        "description": "Low carbohydrate diet for weight management",
+        "meals": [
+          {
+            "recipeId": 1,
+            "quantity": 100
+          },
+          {
+            "recipeId": 4,
+            "quantity": 100
+          },
+          {
+            "recipeId": 5,
+            "quantity": 100
+          }
+        ]
+      }
+    ]
+  }
+]

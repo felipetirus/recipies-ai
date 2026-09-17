@@ -338,18 +338,388 @@
             color: var(--text-secondary);
             margin-top: 4px;
         }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-accent);
+        }
+
+        .nav-link.active {
+            color: var(--text-accent);
+        }
+
+        .profile-selector {
+            margin-bottom: 24px;
+        }
+
+        .profile-selector select {
+            margin-bottom: 8px;
+        }
+
+        .meal-plan-selector {
+            margin-bottom: 24px;
+        }
+
+        .meal-plan-selector select {
+            margin-bottom: 8px;
+        }
+
+        .profile-info {
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .profile-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .profile-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .profile-info-label {
+            color: var(--text-secondary);
+        }
+
+        .profile-info-value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .recipe-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .recipe-details-modal.active {
+            display: flex;
+        }
+
+        .recipe-details-content {
+            background-color: var(--surface-1);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .recipe-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: var(--surface-1);
+            z-index: 10;
+        }
+
+        .recipe-details-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .recipe-details-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recipe-details-body {
+            padding: 24px;
+        }
+
+        .ingredients-edit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .ingredients-edit-table th {
+            text-align: left;
+            padding: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border);
+            background-color: var(--surface-0);
+        }
+
+        .ingredients-edit-table td {
+            padding: 8px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ingredients-edit-table input {
+            width: 60px;
+            padding: 4px 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .ingredients-edit-table td:last-child,
+        .ingredients-edit-table th:last-child {
+            text-align: right;
+        }
+
+        .recipe-total-nutrition {
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .recipe-total-nutrition h3 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .nutrition-item {
+            background-color: var(--surface-1);
+            padding: 12px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+
+        .nutrition-item-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .nutrition-item-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .nutrition-item-unit {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .edit-recipe-btn {
+            background: none;
+            border: none;
+            color: var(--text-accent);
+            cursor: pointer;
+            font-size: 12px;
+            padding: 4px 8px;
+            text-decoration: underline;
+        }
+
+        .edit-recipe-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .add-meal-plan-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .add-meal-plan-modal.active {
+            display: flex;
+        }
+
+        .add-meal-plan-content {
+            background-color: var(--surface-1);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .add-meal-plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .add-meal-plan-header h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .add-meal-plan-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-meal-plan-body {
+            padding: 24px;
+        }
+
+        .meal-plan-recipes-list {
+            margin-top: 16px;
+        }
+
+        .meal-plan-recipe-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding: 8px;
+            background-color: var(--surface-0);
+            border-radius: var(--radius);
+        }
+
+        .meal-plan-recipe-item select {
+            flex: 1;
+        }
+
+        .meal-plan-recipe-item input {
+            width: 80px;
+        }
+
+        .meal-plan-recipe-item button {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Back to recipes</a>
+        <nav class="nav-header">
+            <div class="nav-brand">🍳 Recipe AI</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">My Recipes</a>
+                <a href="meal-planner.html" class="nav-link active">Meal Planner</a>
+            </div>
+        </nav>
         <h1>Meal Planner & Nutrition Calculator</h1>
 
         <div class="layout">
             <!-- Left Column: Meal Planner -->
             <div>
                 <div class="section">
-                    <div class="section-title">📋 Select Recipes</div>
+                    <div class="section-title">� Select Profile</div>
+                    <div class="profile-selector">
+                        <label for="profileSelect">Choose a profile:</label>
+                        <select id="profileSelect">
+                            <option value="">-- Select a profile --</option>
+                        </select>
+                    </div>
+                    
+                    <div id="profileInfo" class="profile-info" style="display: none;">
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Weight:</span>
+                            <span class="profile-info-value"><span id="profileWeight">--</span> kg</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Height:</span>
+                            <span class="profile-info-value"><span id="profileHeight">--</span> cm</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Age:</span>
+                            <span class="profile-info-value"><span id="profileAge">--</span> years</span>
+                        </div>
+                        <div class="profile-info-item">
+                            <span class="profile-info-label">Gender:</span>
+                            <span class="profile-info-value"><span id="profileGender">--</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" style="margin-top: 24px;">
+                    <div class="section-title">🍽️ Select Meal Plan</div>
+                    <div class="meal-plan-selector">
+                        <label for="mealPlanSelect">Choose a meal plan:</label>
+                        <select id="mealPlanSelect">
+                            <option value="">-- Select a meal plan --</option>
+                        </select>
+                    </div>
+                    <div style="margin-top: 12px; display: flex; gap: 8px;">
+                        <button class="secondary" onclick="showAddMealPlanModal()">+ Add New Meal Plan</button>
+                        <button class="secondary danger" onclick="removeCurrentMealPlan()" id="removeMealPlanBtn" style="display: none;">- Remove Current Plan</button>
+                    </div>
+                </div>
+
+                <div class="section" style="margin-top: 24px;">
+                    <div class="section-title">�📋 Select Recipes</div>
                     
                     <div class="recipe-selector">
                         <label for="recipeSelect">Choose a recipe:</label>
@@ -457,47 +827,242 @@
         </div>
     </div>
 
+    <!-- Recipe Details Modal -->
+    <div id="recipeDetailsModal" class="recipe-details-modal">
+        <div class="recipe-details-content">
+            <div class="recipe-details-header">
+                <h2 id="recipeDetailsTitle">Recipe Details</h2>
+                <button class="recipe-details-close" onclick="closeRecipeDetails()">✕</button>
+            </div>
+            <div class="recipe-details-body" id="recipeDetailsBody"></div>
+        </div>
+    </div>
+
+    <!-- Add Meal Plan Modal -->
+    <div id="addMealPlanModal" class="add-meal-plan-modal">
+        <div class="add-meal-plan-content">
+            <div class="add-meal-plan-header">
+                <h2>Create New Meal Plan</h2>
+                <button class="add-meal-plan-close" onclick="closeAddMealPlanModal()">✕</button>
+            </div>
+            <div class="add-meal-plan-body">
+                <div class="form-group">
+                    <label for="newMealPlanName">Meal Plan Name</label>
+                    <input type="text" id="newMealPlanName" placeholder="e.g., High Protein Diet">
+                </div>
+                <div class="form-group">
+                    <label for="newMealPlanDescription">Description</label>
+                    <input type="text" id="newMealPlanDescription" placeholder="Brief description of the meal plan">
+                </div>
+                
+                <div class="section" style="margin-top: 16px;">
+                    <h3>Add Recipes to Meal Plan</h3>
+                    <div id="mealPlanRecipesList" class="meal-plan-recipes-list"></div>
+                    <button class="secondary" onclick="addMealPlanRecipeRow()" style="margin-top: 8px;">+ Add Recipe</button>
+                </div>
+
+                <button onclick="saveNewMealPlan()" style="margin-top: 16px; width: 100%;">Create Meal Plan</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const recipes = [
+        let recipes = [
             {
-                id: 1,
-                name: "Farofa de Ovo",
-                nutrition: { calories: 391, protein: 13.02, carbohydrates: 30.8, fat: 24, saturatedFat: 4.65, fiber: 0, sugar: 0 },
-                baseWeight: 150
+                "id": 1,
+                "name": "Farofa de Ovo",
+                "nutrition": { "calories": 391, "protein": 13.02, "carbohydrates": 30.8, "fat": 24, "saturatedFat": 4.65, "fiber": 0, "sugar": 0 },
+                "baseWeight": 150,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "2", "unit": "whole", "name": "Eggs", "calories": 78, "protein": 6.3, "carbohydrates": 0.6, "fat": 5.3 },
+                    { "quantity": "35", "unit": "g", "name": "Farinha de mandioca", "calories": 128, "protein": 1.2, "carbohydrates": 28.7, "fat": 0.4 },
+                    { "quantity": "15", "unit": "g", "name": "Extra Virgin Olive Oil", "calories": 135, "protein": 0, "carbohydrates": 0, "fat": 15 }
+                ]
             },
             {
-                id: 2,
-                name: "Chickpea Curry",
-                nutrition: { calories: 924, protein: 39.3, carbohydrates: 90.08, fat: 36.52, saturatedFat: 22.56, fiber: 15, sugar: 22.17 },
-                baseWeight: 1670
+                "id": 2,
+                "name": "Chickpea Curry",
+                "nutrition": { "calories": 924, "protein": 39.3, "carbohydrates": 90.08, "fat": 36.52, "saturatedFat": 22.56, "fiber": 15, "sugar": 22.17 },
+                "baseWeight": 1670,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "50", "unit": "g", "name": "Onion", "calories": 20, "protein": 0.6, "carbohydrates": 4.7, "fat": 0.1 },
+                    { "quantity": "20", "unit": "g", "name": "Curry Powder Medium", "calories": 55, "protein": 2.4, "carbohydrates": 8.5, "fat": 2.6 },
+                    { "quantity": "400", "unit": "g", "name": "Chopped Tomato", "calories": 72, "protein": 3.6, "carbohydrates": 15.6, "fat": 0.8 },
+                    { "quantity": "400", "unit": "g", "name": "Chickpeas in Water", "calories": 376, "protein": 20.4, "carbohydrates": 63.2, "fat": 6.4 },
+                    { "quantity": "400", "unit": "g", "name": "Coconut Milk Light", "calories": 200, "protein": 2.4, "carbohydrates": 10, "fat": 18 }
+                ]
             },
             {
-                id: 3,
-                name: "Vitamina Bicudo",
-                nutrition: { calories: 700.94, protein: 14.82, carbohydrates: 95.87, fat: 25.75, saturatedFat: 3.68, fiber: 8, sugar: 55.38 },
-                baseWeight: 600
+                "id": 3,
+                "name": "Vitamina Bicudo",
+                "nutrition": { "calories": 700.94, "protein": 14.82, "carbohydrates": 95.87, "fat": 25.75, "saturatedFat": 3.68, "fiber": 8, "sugar": 55.38 },
+                "baseWeight": 600,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "500", "unit": "g", "name": "Almond roasted milk", "calories": 120, "protein": 4, "carbohydrates": 8, "fat": 8 },
+                    { "quantity": "70", "unit": "g", "name": "Oats Powder", "calories": 270, "protein": 10, "carbohydrates": 45, "fat": 5 },
+                    { "quantity": "2", "unit": "whole", "name": "Bananas", "calories": 210, "protein": 2.6, "carbohydrates": 54, "fat": 0.8 },
+                    { "quantity": "12", "unit": "g", "name": "Flax Oil", "calories": 108, "protein": 0, "carbohydrates": 0, "fat": 12 },
+                    { "quantity": "20", "unit": "g", "name": "Honey", "calories": 60, "protein": 0.1, "carbohydrates": 17, "fat": 0 },
+                    { "quantity": "2", "unit": "g", "name": "Whey Protein", "calories": 8, "protein": 1.6, "carbohydrates": 0.2, "fat": 0.1 }
+                ]
             },
             {
-                id: 4,
-                name: "Falafel Wrap",
-                nutrition: { calories: 564.08, protein: 14.42, carbohydrates: 72.39, fat: 21.96, saturatedFat: 3.31, fiber: 10, sugar: 10.16 },
-                baseWeight: 300
+                "id": 4,
+                "name": "Falafel Wrap",
+                "nutrition": { "calories": 564.08, "protein": 14.42, "carbohydrates": 72.39, "fat": 21.96, "saturatedFat": 3.31, "fiber": 10, "sugar": 10.16 },
+                "baseWeight": 300,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "2", "unit": "whole", "name": "Falafel", "calories": 200, "protein": 8, "carbohydrates": 24, "fat": 8 },
+                    { "quantity": "2", "unit": "whole", "name": "Wraps", "calories": 180, "protein": 6, "carbohydrates": 30, "fat": 4 },
+                    { "quantity": "35", "unit": "g", "name": "Hummus", "calories": 70, "protein": 3, "carbohydrates": 6, "fat": 4 },
+                    { "quantity": "80", "unit": "g", "name": "Mixed Peppers", "calories": 24, "protein": 0.8, "carbohydrates": 5.6, "fat": 0.2 },
+                    { "quantity": "50", "unit": "g", "name": "Onion", "calories": 20, "protein": 0.6, "carbohydrates": 4.7, "fat": 0.1 },
+                    { "quantity": "10", "unit": "g", "name": "Extra Virgin Olive Oil", "calories": 90, "protein": 0, "carbohydrates": 0, "fat": 10 }
+                ]
             },
             {
-                id: 5,
-                name: "Broccoli Delight",
-                nutrition: { calories: 793.21, protein: 48.61, carbohydrates: 64.28, fat: 32.65, saturatedFat: 22.93, fiber: 18, sugar: 25.92 },
-                baseWeight: 1340
+                "id": 5,
+                "name": "Broccoli Delight",
+                "nutrition": { "calories": 793.21, "protein": 48.61, "carbohydrates": 64.28, "fat": 32.65, "saturatedFat": 22.93, "fiber": 18, "sugar": 25.92 },
+                "baseWeight": 1340,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "400", "unit": "g", "name": "Broccoli", "calories": 136, "protein": 10.8, "carbohydrates": 26.4, "fat": 1.6 },
+                    { "quantity": "300", "unit": "g", "name": "Mixed Peppers", "calories": 90, "protein": 2.4, "carbohydrates": 21, "fat": 0.9 },
+                    { "quantity": "7", "unit": "g", "name": "Curry Powder", "calories": 19, "protein": 0.8, "carbohydrates": 3, "fat": 0.9 },
+                    { "quantity": "400", "unit": "g", "name": "Coconut Milk Light", "calories": 200, "protein": 2.4, "carbohydrates": 10, "fat": 18 },
+                    { "quantity": "240", "unit": "g", "name": "Red Kidney beans", "calories": 216, "protein": 15.6, "carbohydrates": 38.4, "fat": 0.7 },
+                    { "quantity": "0.5", "unit": "whole", "name": "Lime", "calories": 10, "protein": 0.1, "carbohydrates": 3.2, "fat": 0.1 }
+                ]
             },
             {
-                id: 6,
-                name: "Spanish Lentil Stew",
-                nutrition: { calories: 1731.43, protein: 41.1, carbohydrates: 121.55, fat: 3, saturatedFat: 0.5, fiber: 25, sugar: 13.4 },
-                baseWeight: 3000
+                "id": 6,
+                "name": "Spanish Lentil Stew",
+                "nutrition": { "calories": 1731.43, "protein": 41.1, "carbohydrates": 121.55, "fat": 3, "saturatedFat": 0.5, "fiber": 25, "sugar": 13.4 },
+                "baseWeight": 3000,
+                "quantityPerServing": 100,
+                "ingredients": [
+                    { "quantity": "500", "unit": "g", "name": "Red split lentils", "calories": 1770, "protein": 40, "carbohydrates": 300, "fat": 6 },
+                    { "quantity": "200", "unit": "g", "name": "Onion", "calories": 80, "protein": 2.4, "carbohydrates": 18.8, "fat": 0.4 },
+                    { "quantity": "200", "unit": "g", "name": "Carrot", "calories": 82, "protein": 1.8, "carbohydrates": 19.2, "fat": 0.4 },
+                    { "quantity": "15", "unit": "g", "name": "Garlic", "calories": 22, "protein": 1.1, "carbohydrates": 4.9, "fat": 0.1 },
+                    { "quantity": "450", "unit": "g", "name": "Peas", "calories": 351, "protein": 23.4, "carbohydrates": 62.1, "fat": 1.4 },
+                    { "quantity": "15", "unit": "g", "name": "Tamari", "calories": 18, "protein": 2.4, "carbohydrates": 1.8, "fat": 0 }
+                ]
+            }
+        ];
+
+        let profiles = [
+            {
+                "id": 1,
+                "name": "Felipe",
+                "calculatorSettings": {
+                    "weight": 58,
+                    "height": 154,
+                    "age": 35,
+                    "gender": "M",
+                    "activity": 1.55,
+                    "calorieAdj": -300,
+                    "proteinPerKg": 1.4
+                },
+                "mealPlans": [
+                    {
+                        "id": 1,
+                        "name": "Balanced Diet",
+                        "description": "A balanced diet with moderate protein and carbs",
+                        "meals": [
+                            { "recipeId": 1, "quantity": 100 },
+                            { "recipeId": 2, "quantity": 150 },
+                            { "recipeId": 5, "quantity": 120 }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "name": "High Protein Diet",
+                        "description": "High protein diet for muscle building",
+                        "meals": [
+                            { "recipeId": 3, "quantity": 100 },
+                            { "recipeId": 2, "quantity": 200 },
+                            { "recipeId": 5, "quantity": 150 }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "name": "Low Carb Diet",
+                        "description": "Low carbohydrate diet for weight management",
+                        "meals": [
+                            { "recipeId": 1, "quantity": 100 },
+                            { "recipeId": 4, "quantity": 100 },
+                            { "recipeId": 5, "quantity": 100 }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Camila",
+                "calculatorSettings": {
+                    "weight": 55,
+                    "height": 160,
+                    "age": 30,
+                    "gender": "F",
+                    "activity": 1.375,
+                    "calorieAdj": -200,
+                    "proteinPerKg": 1.2
+                },
+                "mealPlans": [
+                    {
+                        "id": 1,
+                        "name": "Balanced Diet",
+                        "description": "A balanced diet with moderate protein and carbs",
+                        "meals": [
+                            { "recipeId": 3, "quantity": 100 },
+                            { "recipeId": 2, "quantity": 120 },
+                            { "recipeId": 5, "quantity": 100 }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "name": "High Protein Diet",
+                        "description": "High protein diet for muscle building",
+                        "meals": [
+                            { "recipeId": 1, "quantity": 100 },
+                            { "recipeId": 2, "quantity": 150 },
+                            { "recipeId": 6, "quantity": 100 }
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "name": "Low Carb Diet",
+                        "description": "Low carbohydrate diet for weight management",
+                        "meals": [
+                            { "recipeId": 1, "quantity": 100 },
+                            { "recipeId": 4, "quantity": 100 },
+                            { "recipeId": 5, "quantity": 100 }
+                        ]
+                    }
+                ]
             }
         ];
 
         let selectedMeals = [];
+        let currentProfile = null;
+        let currentMealPlan = null;
+
+        // Initialize profile selector
+        function initProfileSelector() {
+            const select = document.getElementById('profileSelect');
+            profiles.forEach(profile => {
+                const option = document.createElement('option');
+                option.value = profile.id;
+                option.textContent = profile.name;
+                select.appendChild(option);
+            });
+        }
 
         // Initialize recipe selector
         function initRecipeSelector() {
@@ -510,6 +1075,85 @@
             });
         }
 
+        // Initialize meal plan selector for current profile
+        function initMealPlanSelector() {
+            const select = document.getElementById('mealPlanSelect');
+            select.innerHTML = '<option value="">-- Select a meal plan --</option>';
+            
+            if (currentProfile) {
+                currentProfile.mealPlans.forEach(plan => {
+                    const option = document.createElement('option');
+                    option.value = plan.id;
+                    option.textContent = plan.name;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        // Handle profile selection
+        function handleProfileChange() {
+            const profileId = parseInt(document.getElementById('profileSelect').value);
+            currentProfile = profiles.find(p => p.id === profileId);
+            
+            const profileInfo = document.getElementById('profileInfo');
+            
+            if (currentProfile) {
+                profileInfo.style.display = 'block';
+                document.getElementById('profileWeight').textContent = currentProfile.calculatorSettings.weight;
+                document.getElementById('profileHeight').textContent = currentProfile.calculatorSettings.height;
+                document.getElementById('profileAge').textContent = currentProfile.calculatorSettings.age;
+                document.getElementById('profileGender').textContent = currentProfile.calculatorSettings.gender === 'M' ? 'Male' : 'Female';
+                
+                // Update calculator settings
+                document.getElementById('weight').value = currentProfile.calculatorSettings.weight;
+                document.getElementById('height').value = currentProfile.calculatorSettings.height;
+                document.getElementById('age').value = currentProfile.calculatorSettings.age;
+                document.getElementById('gender').value = currentProfile.calculatorSettings.gender;
+                document.getElementById('activity').value = currentProfile.calculatorSettings.activity;
+                document.getElementById('calorieAdj').value = currentProfile.calculatorSettings.calorieAdj;
+                document.getElementById('proteinPerKg').value = currentProfile.calculatorSettings.proteinPerKg;
+                
+                initMealPlanSelector();
+                calculateTBM();
+            } else {
+                profileInfo.style.display = 'none';
+                currentMealPlan = null;
+                initMealPlanSelector();
+            }
+        }
+
+        // Handle meal plan selection
+        function handleMealPlanChange() {
+            const mealPlanId = parseInt(document.getElementById('mealPlanSelect').value);
+            
+            if (currentProfile && mealPlanId) {
+                currentMealPlan = currentProfile.mealPlans.find(p => p.id === mealPlanId);
+                loadMealPlan(currentMealPlan);
+            } else {
+                currentMealPlan = null;
+                clearAllRecipes();
+            }
+        }
+
+        // Load meal plan recipes
+        function loadMealPlan(mealPlan) {
+            selectedMeals = [];
+            mealPlan.meals.forEach(meal => {
+                const originalRecipe = recipes.find(r => r.id === meal.recipeId);
+                if (originalRecipe) {
+                    // Create a deep copy of the recipe for this meal
+                    const recipeCopy = JSON.parse(JSON.stringify(originalRecipe));
+                    selectedMeals.push({
+                        recipe: recipeCopy,
+                        quantity: meal.quantity,
+                        id: Date.now() + Math.random()
+                    });
+                }
+            });
+            updateMealDisplay();
+            updateNutritionSummary();
+        }
+
         function addRecipeToMeal() {
             const recipeId = parseInt(document.getElementById('recipeSelect').value);
             const quantity = parseInt(document.getElementById('recipeQty').value) || 100;
@@ -519,9 +1163,14 @@
                 return;
             }
 
-            const recipe = recipes.find(r => r.id === recipeId);
+            const originalRecipe = recipes.find(r => r.id === recipeId);
+            
+            // Create a completely independent deep copy of the recipe for this meal
+            const recipeCopy = JSON.parse(JSON.stringify(originalRecipe));
+            
+            // Ensure the copy is truly independent by reassigning
             selectedMeals.push({
-                recipe: recipe,
+                recipe: recipeCopy,
                 quantity: quantity,
                 id: Date.now()
             });
@@ -554,8 +1203,9 @@
             }
 
             container.innerHTML = selectedMeals.map(meal => {
-                const cal = (meal.recipe.nutrition.calories / meal.recipe.baseWeight) * meal.quantity;
-                const protein = (meal.recipe.nutrition.protein / meal.recipe.baseWeight) * meal.quantity;
+                const baseWeight = meal.recipe.baseWeight || 100;
+                const cal = (meal.recipe.nutrition.calories / baseWeight) * meal.quantity;
+                const protein = (meal.recipe.nutrition.protein / baseWeight) * meal.quantity;
                 
                 return `
                     <div class="recipe-row">
@@ -564,6 +1214,7 @@
                             <div class="recipe-row-nutrition">${cal.toFixed(0)} cal • ${protein.toFixed(1)}g protein</div>
                         </div>
                         <div class="recipe-row-qty">${meal.quantity}g</div>
+                        <button class="edit-recipe-btn" onclick="openRecipeDetails(${meal.id})">Edit Ingredients</button>
                         <button class="recipe-row-delete danger" onclick="removeRecipe(${meal.id})">Remove</button>
                     </div>
                 `;
@@ -593,7 +1244,8 @@
             };
 
             selectedMeals.forEach(meal => {
-                const ratio = meal.quantity / meal.recipe.baseWeight;
+                const baseWeight = meal.recipe.baseWeight || 100;
+                const ratio = meal.quantity / baseWeight;
                 totals.calories += meal.recipe.nutrition.calories * ratio;
                 totals.protein += meal.recipe.nutrition.protein * ratio;
                 totals.fat += meal.recipe.nutrition.fat * ratio;
@@ -692,11 +1344,266 @@
             summary.style.display = 'block';
         }
 
+        // Recipe Details Modal Functions
+        function openRecipeDetails(mealId) {
+            const meal = selectedMeals.find(m => m.id === mealId);
+            if (!meal) return;
+
+            console.log('Opening recipe details for:', meal.recipe.name);
+            console.log('Current ingredient 0 quantity:', meal.recipe.ingredients[0].quantity);
+            console.log('Current total calories:', meal.recipe.nutrition.calories);
+
+            currentEditingMealId = mealId;
+            
+            // Store the current meal's ingredient values as the baseline for this edit session
+            originalIngredients = JSON.parse(JSON.stringify(meal.recipe.ingredients));
+
+            const modal = document.getElementById('recipeDetailsModal');
+            const title = document.getElementById('recipeDetailsTitle');
+            const body = document.getElementById('recipeDetailsBody');
+
+            title.textContent = meal.recipe.name;
+
+            // Calculate nutrition based on current quantity
+            const baseWeight = meal.recipe.baseWeight || 100;
+            const ratio = meal.quantity / baseWeight;
+
+            body.innerHTML = `
+                <div class="section">
+                    <h3>Ingredients (Editable)</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Current quantity: ${meal.quantity}g | Base weight: ${baseWeight}g
+                    </p>
+                    <table class="ingredients-edit-table">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Calories</th>
+                                <th>Protein</th>
+                                <th>Carbs</th>
+                                <th>Fat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ingredientsTableBody">
+                            ${meal.recipe.ingredients.map((ing, index) => `
+                                <tr data-index="${index}">
+                                    <td>${ing.name}</td>
+                                    <td>
+                                        <input type="number" 
+                                               class="ingredient-qty" 
+                                               data-index="${index}" 
+                                               value="${ing.quantity}" 
+                                               min="0" 
+                                               step="0.1"
+                                               onchange="recalculateRecipeTotals()">
+                                    </td>
+                                    <td>${ing.unit}</td>
+                                    <td class="ing-calories">${ing.calories.toFixed(1)}</td>
+                                    <td class="ing-protein">${ing.protein.toFixed(1)}g</td>
+                                    <td class="ing-carbs">${ing.carbohydrates.toFixed(1)}g</td>
+                                    <td class="ing-fat">${ing.fat.toFixed(1)}g</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="recipe-total-nutrition">
+                    <h3>Total Nutrition (${meal.quantity}g)</h3>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Calories</div>
+                            <div class="nutrition-item-value" id="totalCalories">${(meal.recipe.nutrition.calories * ratio).toFixed(0)}</div>
+                            <div class="nutrition-item-unit">kcal</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Protein</div>
+                            <div class="nutrition-item-value" id="totalProtein">${(meal.recipe.nutrition.protein * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Carbohydrates</div>
+                            <div class="nutrition-item-value" id="totalCarbs">${(meal.recipe.nutrition.carbohydrates * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Fat</div>
+                            <div class="nutrition-item-value" id="totalFat">${(meal.recipe.nutrition.fat * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Saturated Fat</div>
+                            <div class="nutrition-item-value" id="totalSatFat">${(meal.recipe.nutrition.saturatedFat * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Fiber</div>
+                            <div class="nutrition-item-value" id="totalFiber">${(meal.recipe.nutrition.fiber * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-item-label">Sugar</div>
+                            <div class="nutrition-item-value" id="totalSugar">${(meal.recipe.nutrition.sugar * ratio).toFixed(1)}</div>
+                            <div class="nutrition-item-unit">g</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="saveIngredientChanges()" style="margin-top: 16px; width: 100%;">Save Changes</button>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeRecipeDetails() {
+            const modal = document.getElementById('recipeDetailsModal');
+            modal.classList.remove('active');
+            currentEditingMealId = null;
+            originalIngredients = null;
+        }
+
+        function recalculateRecipeTotals() {
+            const meal = selectedMeals.find(m => m.id === currentEditingMealId);
+            if (!meal || !originalIngredients) return;
+
+            const baseWeight = meal.recipe.baseWeight || 100;
+            const ratio = meal.quantity / baseWeight;
+
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFat = 0;
+            let totalSatFat = 0;
+            let totalFiber = 0;
+            let totalSugar = 0;
+
+            // Get all edited quantities and calculate totals based on the baseline values
+            const inputs = document.querySelectorAll('.ingredient-qty');
+            inputs.forEach((input, index) => {
+                const baselineIngredient = originalIngredients[index];
+                const newQty = parseFloat(input.value) || parseFloat(baselineIngredient.quantity);
+                const baselineQuantity = parseFloat(baselineIngredient.quantity);
+                const qtyRatio = newQty / baselineQuantity;
+
+                // Calculate new nutrition based on the baseline values
+                const ingCalories = baselineIngredient.calories * qtyRatio;
+                const ingProtein = baselineIngredient.protein * qtyRatio;
+                const ingCarbs = baselineIngredient.carbohydrates * qtyRatio;
+                const ingFat = baselineIngredient.fat * qtyRatio;
+
+                // Update individual ingredient nutrition display
+                const row = document.querySelector(`tr[data-index="${index}"]`);
+                row.querySelector('.ing-calories').textContent = ingCalories.toFixed(1);
+                row.querySelector('.ing-protein').textContent = ingProtein.toFixed(1) + 'g';
+                row.querySelector('.ing-carbs').textContent = ingCarbs.toFixed(1) + 'g';
+                row.querySelector('.ing-fat').textContent = ingFat.toFixed(1) + 'g';
+
+                totalCalories += ingCalories;
+                totalProtein += ingProtein;
+                totalCarbs += ingCarbs;
+                totalFat += ingFat;
+                totalSatFat += (baselineIngredient.saturatedFat || 0) * qtyRatio;
+                totalFiber += (baselineIngredient.fiber || 0) * qtyRatio;
+                totalSugar += (baselineIngredient.sugar || 0) * qtyRatio;
+            });
+
+            // Update totals display based on current meal quantity
+            document.getElementById('totalCalories').textContent = (totalCalories * ratio).toFixed(0);
+            document.getElementById('totalProtein').textContent = (totalProtein * ratio).toFixed(1);
+            document.getElementById('totalCarbs').textContent = (totalCarbs * ratio).toFixed(1);
+            document.getElementById('totalFat').textContent = (totalFat * ratio).toFixed(1);
+            document.getElementById('totalSatFat').textContent = (totalSatFat * ratio).toFixed(1);
+            document.getElementById('totalFiber').textContent = (totalFiber * ratio).toFixed(1);
+            document.getElementById('totalSugar').textContent = (totalSugar * ratio).toFixed(1);
+        }
+
+        let currentEditingMealId = null;
+        let originalIngredients = null; // Store original ingredient values for proper calculation
+
+        function saveIngredientChanges() {
+            const meal = selectedMeals.find(m => m.id === currentEditingMealId);
+            if (!meal || !originalIngredients) return;
+
+            console.log('Saving changes for meal:', meal.recipe.name);
+            console.log('Before save - ingredient 0 quantity:', meal.recipe.ingredients[0].quantity);
+
+            // Save the edited quantities and update nutrition based on baseline values
+            const inputs = document.querySelectorAll('.ingredient-qty');
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFat = 0;
+            let totalSatFat = 0;
+            let totalFiber = 0;
+            let totalSugar = 0;
+
+            inputs.forEach((input, index) => {
+                const baselineIngredient = originalIngredients[index];
+                const newQty = parseFloat(input.value);
+                if (!isNaN(newQty) && newQty > 0) {
+                    const baselineQuantity = parseFloat(baselineIngredient.quantity);
+                    const qtyRatio = newQty / baselineQuantity;
+                    
+                    // Update ingredient quantity in the meal's recipe copy
+                    meal.recipe.ingredients[index].quantity = newQty;
+                    
+                    // Update ingredient nutrition based on baseline values and new quantity
+                    meal.recipe.ingredients[index].calories = baselineIngredient.calories * qtyRatio;
+                    meal.recipe.ingredients[index].protein = baselineIngredient.protein * qtyRatio;
+                    meal.recipe.ingredients[index].carbohydrates = baselineIngredient.carbohydrates * qtyRatio;
+                    meal.recipe.ingredients[index].fat = baselineIngredient.fat * qtyRatio;
+                    
+                    // Update other nutrition values if they exist in baseline
+                    if (baselineIngredient.saturatedFat !== undefined) {
+                        meal.recipe.ingredients[index].saturatedFat = baselineIngredient.saturatedFat * qtyRatio;
+                    }
+                    if (baselineIngredient.fiber !== undefined) {
+                        meal.recipe.ingredients[index].fiber = baselineIngredient.fiber * qtyRatio;
+                    }
+                    if (baselineIngredient.sugar !== undefined) {
+                        meal.recipe.ingredients[index].sugar = baselineIngredient.sugar * qtyRatio;
+                    }
+                    
+                    // Add to totals
+                    totalCalories += meal.recipe.ingredients[index].calories;
+                    totalProtein += meal.recipe.ingredients[index].protein;
+                    totalCarbs += meal.recipe.ingredients[index].carbohydrates;
+                    totalFat += meal.recipe.ingredients[index].fat;
+                    totalSatFat += meal.recipe.ingredients[index].saturatedFat || 0;
+                    totalFiber += meal.recipe.ingredients[index].fiber || 0;
+                    totalSugar += meal.recipe.ingredients[index].sugar || 0;
+                }
+            });
+
+            // Update the recipe's total nutrition in the meal's copy
+            meal.recipe.nutrition.calories = totalCalories;
+            meal.recipe.nutrition.protein = totalProtein;
+            meal.recipe.nutrition.carbohydrates = totalCarbs;
+            meal.recipe.nutrition.fat = totalFat;
+            meal.recipe.nutrition.saturatedFat = totalSatFat;
+            meal.recipe.nutrition.fiber = totalFiber;
+            meal.recipe.nutrition.sugar = totalSugar;
+
+            console.log('After save - ingredient 0 quantity:', meal.recipe.ingredients[0].quantity);
+            console.log('After save - total calories:', meal.recipe.nutrition.calories);
+
+            closeRecipeDetails();
+            updateMealDisplay();
+            updateNutritionSummary();
+        }
+
         // Initialize on load
         window.addEventListener('DOMContentLoaded', () => {
             initRecipeSelector();
+            initProfileSelector();
             calculateTBM();
             updateNutritionSummary();
+            
+            // Add event listeners for profile and meal plan selectors
+            document.getElementById('profileSelect').addEventListener('change', handleProfileChange);
+            document.getElementById('mealPlanSelect').addEventListener('change', handleMealPlanChange);
         });
     </script>
 </body>
